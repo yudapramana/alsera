@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
-import styled from 'styled-components';
 import './Outlets.css'
 
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Map from '../../component/Map';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
-import { Modal, Button, InputGroup, Form, Row, Col,  } from 'react-bootstrap';
+import { Modal, Button, Form, Row, Col,  } from 'react-bootstrap';
 import GlobalDispatch from '../../reducer/globalDispatch';
 import Geocode from "react-geocode";
 import ActionType from "../../reducer/globalActionType";

@@ -32,7 +32,7 @@ class Home extends Component {
                     <h5 className="text-muted">Explore nearby outlets around you</h5>
                     <div className="row">
                       {
-                          (this.props.locationflag && this.props.outlets.length != 0 )
+                          (this.props.locationflag && this.props.outlets.length !== 0 )
                           ?
                           this.props.outlets.map(outlet => {
                               return (
@@ -46,7 +46,7 @@ class Home extends Component {
                       
                     </Container>
                 </div>
-                {this.props.loading && <img src={logo} className="App-logo" />}
+                {this.props.loading && <img src={logo} className="App-logo" alt="app-logo"/>}
                 {this.props.error && <p>Please enable location on site setting!</p>}
                 <MapModal
                     
