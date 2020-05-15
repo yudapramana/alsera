@@ -41,7 +41,7 @@ const fetchOutlet = () => {
         let gState = storeRedux.getState();
         let coords = gState.coordinate.latitude + ',' + gState.coordinate.longitude;
         console.log(coords);
-        axios.get('http://customer.kliknklin.co/api/onradius/nearbies/'+coords)
+        axios.get('https://customer.kliknklin.co/api/onradius/nearbies/'+coords)
             .then((result) => {
                 resolve(result.data);
             }, (err) => {

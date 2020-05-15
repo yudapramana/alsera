@@ -3,7 +3,7 @@ import React from "react";
 export const MapPoint = ({ text }) => (
   <div>
     <img
-      src="http://kliknklin.co//assets/images//markermaps.png"
+      src="https://kliknklin.co//assets/images//markermaps.png"
       className="rounded rounded-circle"
       alt={text}
       title={text}
