@@ -1,0 +1,13 @@
+const ActionType = {
+    LOADING: 'LOADING',
+    FETCH_LOCATION: 'FETCH_LOCATION',
+    FETCH_OUTLET: 'FETCH_OUTLET',
+    FIND_LOCATION: 'FIND_LOCATION',
+    TOGGLE_MODAL: 'TOGGLE_MODAL',
+}
+
+export default ActionType;
+
+
+
+
