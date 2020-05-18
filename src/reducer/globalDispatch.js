@@ -39,11 +39,13 @@ const fetchOutlet = () => {
     console.log('RUN GETOUTLET');
     return new Promise((resolve, reject) =>{
         let gState = storeRedux.getState();
-        let coords = gState.coordinate.latitude + ',' + gState.coordinate.longitude;
+        let coords = gState.mapOptions.center.lat + ',' + gState.mapOptions.center.lng;
         console.log(coords);
+        // axios.get('http://localhost:3004/outlets')
         axios.get('https://customer.kliknklin.co/api/onradius/nearbies/'+coords)
             .then((result) => {
                 resolve(result.data);
+                // resolve(result);
             }, (err) => {
                 reject(err);
             })

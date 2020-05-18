@@ -2,16 +2,19 @@ import React from "react";
 import GoogleMapReact from "google-map-react";
 import MapPoint from "./MapPoint";
 import MapEmoji from "./MapEmoji";
+import {connect} from 'react-redux';
+import ActionType from "../reducer/globalActionType";
 
 export class Map extends React.Component {
+
   constructor(props) {
     super(props);
 
     this.state = {
       defaultProps: {
         center: this.props.center || {
-          lat: this.props.lat || 41.633,
-          lng: this.props.lng || -71.222
+          lat: this.props.lat || -6.1757359,
+          lng: this.props.lng || 106.824877
         },
         zoom: this.props.zoom || 11,
         styles: this.props.styles || [],
@@ -20,11 +23,16 @@ export class Map extends React.Component {
     };
   }
 
-  _onChange = ({center, zoom}) => {
+  _onChange({ center, zoom }) {
+
+    console.log(center);
+
     this.setState({
       center: center,
-      zoom: zoom,      
+      zoom: zoom
     });
+
+    this.props.setMapCenter(center)
   }
 
   render() {
@@ -32,25 +40,41 @@ export class Map extends React.Component {
       <GoogleMapReact
         onChange={this._onChange}
         bootstrapURLKeys={{
-          key: this.props.apiKey ? this.props.apiKey : "you need an API key!"
+          key: this.props.mapOptions.apiKey
         }}
-        defaultCenter={this.state.defaultProps.center}
-        defaultZoom={this.state.defaultProps.zoom}
-        layerTypes={this.state.defaultProps.layerTypes}
-        options={{ styles: this.state.defaultProps.styles }}
+        defaultCenter={this.props.mapOptions.center}
+        defaultZoom={this.props.mapOptions.zoom}
+        layerTypes={this.props.mapOptions.layerTypes}
+        options={{ styles: this.props.mapOptions.styles }}
       >
         <MapEmoji
           emoji="🎯"
-          lat={this.state.defaultProps.center.lat}
-          lng={this.state.defaultProps.center.lng}
+          lat={this.props.mapOptions.center.lat}
+          lng={this.props.mapOptions.center.lng}
           text="Map Center"
         />
-        <MapPoint lat={41.633} lng={-71.233} text={"Point 1"} />
-        <MapPoint lat={41.643} lng={-71.243} text={"Point 2"} />
         <MapEmoji emoji="🎱" lat={41.61} lng={-71.323} />
       </GoogleMapReact>
     );
   }
 }
 
-export default Map;
+
+const mapStatetoProps = (state) => {
+  return {
+      error: state.error,
+      loading: state.loading,
+      locationflag: state.locationflag,
+      mapOptions: state.mapOptions,
+      outlets: state.outlets,
+      modalShow: state.modalShow
+  }
+}
+
+const mapDispatchtoProps = (dispatch) => {
+  return {
+      setMapCenter: (value) => dispatch({type: ActionType.SET_MAP_CENTER, center: value.center}),
+  }
+}
+
+export default connect(mapStatetoProps, mapDispatchtoProps)(Map);

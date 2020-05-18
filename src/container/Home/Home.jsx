@@ -14,25 +14,24 @@ import 'react-google-places-autocomplete/dist/index.min.css';
 
 
 class Home extends Component {
-
-    componentDidMount() {
-        this.props.getLocation();
-    }
         
     render() {
         return (
             <React.Fragment>
                 <JumbotronHeader 
                   showModal={() => this.props.handleModal(true)}
+                  paramLat={this.props.mapOptions.center.lat}
+                  paramLng={this.props.mapOptions.center.lng}
                 />
 
                 <div className="locationWrapper">
                   <Container>
                     <h2>Nearby Outlets</h2>
                     <h5 className="text-muted">Explore nearby outlets around you</h5>
+                    {/* <h6 className="text-muted">Coord: {this.props.mapOptions.center.lat}, {this.props.mapOptions.center.lng}</h6> */}
                     <div className="row">
                       {
-                          (this.props.locationflag && this.props.outlets.length !== 0 )
+                          (this.props.locationflag && this.props.outlets.length != 0 )
                           ?
                           this.props.outlets.map(outlet => {
                               return (
@@ -49,8 +48,6 @@ class Home extends Component {
                 {this.props.loading && <img src={logo} className="App-logo" alt="app-logo"/>}
                 {this.props.error && <p>Please enable location on site setting!</p>}
                 <MapModal
-                    
-                    onGeo={this.runGeocode}
                     getOutlet={this.props.getOutlet}
                 />
                 
@@ -63,21 +60,19 @@ class Home extends Component {
 
 const mapStatetoProps = (state) => {
     return {
-        loading: state.loading,
-        coords: {
-            latitude: state.coordinate.latitude,
-            longitude: state.coordinate.longitude,
-        },
         error: state.error,
+        loading: state.loading,
         locationflag: state.locationflag,
+        mapOptions: state.mapOptions,
         outlets: state.outlets,
+        modalShow: state.modalShow
     }
 }
 
 const mapDispatchtoProps = (dispatch) => {
     return {
         getLocation: () => dispatch(GlobalDispatch.getLocation()),
-        findLocation: (val1, val2) => dispatch({type: ActionType.FIND_LOCATION, value1: val1, value2: val2}),
+        setLocation: (val1, val2) => dispatch({type: ActionType.SET_LOCATION, value1: val1, value2: val2}),
         handleModal: (val) => dispatch({type: ActionType.TOGGLE_MODAL, value: val}),
         
     }
